@@ -1,0 +1,22 @@
+{
+  "using": ["types.json", "ethernet.json", "ipv4.json"],
+  "include_modules": ["tostr"],
+
+  "protocol": {
+    "id": "arp",
+    "name": "ARP",
+    "parent": "ethernet",
+    "ethertype": 2054,
+    "header": [
+      {"id": "type_h", "name": "Hardware Type", "size": 2, "type": "int"},
+      {"id": "type_p", "name": "Protocol Type", "size": 2, "type": "int", "f_str": "tostr.inttohexstr"},
+      {"id": "len_h", "name": "Hardware Address Size", "size": 1, "type": "int"},
+      {"id": "len_p", "name": "Protocol Address Size", "size": 1, "type": "int"},
+      {"id": "opcode", "name": "Opcode", "size": 2, "type": "int"},
+      {"id": "src_h", "name": "Source Hardware Address", "type": "mac_addr"},
+      {"id": "src_p", "name": "Source Protocol Address", "type": "ip_addr"},
+      {"id": "dst_h", "name": "Destination Hardware Address", "type": "mac_addr"},
+      {"id": "dst_p", "name": "Destination Protocol Address", "type": "ip_addr"}
+    ]
+  }
+}

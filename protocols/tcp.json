@@ -1,0 +1,34 @@
+{
+  "using": ["types.json", "ipv4.json"],
+  "include_modules": ["tostr", "util"],
+
+  "protocol": {
+      "id": "tcp",
+      "name": "TCP",
+      "parent": "ipv4",
+      "protocol": 6,
+      "header": [
+        {"id": "src", "name": "Source", "size": 2, "type": "int"},
+        {"id": "dst", "name": "Destination", "size": 2, "type": "int"},
+        {"id": "seq_number", "name": "Sequence Number", "size": 4, "type": "int"},
+        {"id": "ack_number", "name": "Acknowledgement Number", "size": 4, "type": "int"},
+        {"id": "data_offset", "name": "Data Offset", "size": 4, "type": "bitfield"},
+        {"id": "ignore", "size": 3, "type": "bitfield"},
+        {"id": "ns", "name": "NS", "type": "flag"},
+        {"id": "cwr", "name": "CWR", "type": "flag"},
+        {"id": "ece", "name": "ECE", "type": "flag"},
+        {"id": "urg", "name": "URG", "type": "flag"},
+        {"id": "ack", "name": "ACK", "type": "flag"},
+        {"id": "psh", "name": "PSH", "type": "flag"},
+        {"id": "rst", "name": "RST", "type": "flag"},
+        {"id": "syn", "name": "SYN", "type": "flag"},
+        {"id": "fin", "name": "FIN", "type": "flag"},
+        {"id": "window_size", "name": "Window Size", "size": 2, "type": "int"},
+        {"id": "checksum", "name": "Checksum", "size": 2, "type": "int", "f_str": "tostr.inttohexstr"},
+        {"id": "urg_pointer", "name": "Urgent Pointer", "size": 2, "type": "int"},
+        {"id": "options", "name": "Options", "f_size_func": "util.tcp_options_size", "type": "str", "f_str": "tostr.strtohexstr"}
+      ],
+      "payload_key": "dst",
+      "endpoints": ["src", "dst"]
+    }
+}

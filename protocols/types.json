@@ -1,0 +1,18 @@
+{
+  "include_modules": ["parsing", "tostr"],
+
+  "types": [
+      {
+        "name": "field",
+        "f_parse": "parsing.parse_none",
+        "f_str": "tostr.basicstr",
+        "bit_value": false,
+        "size": 0
+      },
+      {"name": "list",     "base": "field", "f_parse": "parsing.parse_list", "f_str": "tostr.listtostr"},
+      {"name": "int",      "base": "field", "f_parse": "parsing.parse_int"},
+      {"name": "str",      "base": "field", "f_parse": "parsing.parse_str"},
+      {"name": "flag",     "base": "field", "f_parse": "parsing.parse_flag", "bit_value": true},
+      {"name": "bitfield", "base": "field", "f_parse": "parsing.parse_bitfield", "bit_value": true}
+  ]
+}

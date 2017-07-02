@@ -1,0 +1,34 @@
+{
+  "using": ["types.json", "ethernet.json"],
+  "include_modules": ["tostr"],
+
+  "types": [
+    {"name": "ip_addr", "base": "str", "size": 4, "f_str": "tostr.iptostr"}
+  ],
+
+  "protocol": {
+    "id": "ipv4",
+    "name": "IPv4",
+    "parent": "ethernet",
+    "ethertype": 2048,
+    "header": [
+      {"id": "version", "name": "Version", "size": 4, "type": "bitfield"},
+      {"id": "ihl", "name": "IHL", "size": 4, "type": "bitfield"},
+      {"id": "dscp", "name": "DSCP", "size": 6, "type": "bitfield"},
+      {"id": "ecn", "name": "ECP", "size": 2, "type": "bitfield"},
+      {"id": "total_length", "name": "Total Length", "size": 2, "type": "int"},
+      {"id": "id", "name": "ID", "size": 2, "type": "int"},
+      {"id": "ignore", "type": "flag"},
+      {"id": "df", "name": "DF", "type": "flag"},
+      {"id": "mf", "name": "MF", "type": "flag"},
+      {"id": "fragment_offset", "name": "Fragment Offset", "size": 13, "type": "bitfield"},
+      {"id": "ttl", "name": "Time To Live", "size": 1, "type": "int"},
+      {"id": "protocol", "name": "Protocol", "size": 1, "type": "int"},
+      {"id": "checksum", "name": "Checksum", "size": 2, "type": "int"},
+      {"id": "src", "name": "Source", "type": "ip_addr"},
+      {"id": "dst", "name": "Destination", "type": "ip_addr"}
+    ],
+    "payload": {"f_func": "parsing.get_payload", "key": "protocol"},
+    "endpoints": ["src", "dst"]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "using": ["udp.json"],
+  "include_modules": ["parsing", "util", "tostr"],
+
+  "types": [
+    {"name": "dns_str", "base": "str", "f_parse": "parsing.parse_dnsstr"}
+  ],
+
+  "protocol": {
+    "id": "dns",
+    "name": "DNS",
+    "parent": "udp",
+    "port": 53,
+    "header": [
+      {"id": "id", "name": "ID", "type": "int", "size": 2},
+      {"id": "qr", "name": "QR", "type": "flag"},
+      {"id": "opcode", "name": "Opcode", "type": "bitfield", "size": 4},
+      {"id": "aa", "name": "AA", "type": "flag"},
+      {"id": "tc", "name": "TC", "type": "flag"},
+      {"id": "rd", "name": "RD", "type": "flag"},
+      {"id": "ra", "name": "RA", "type": "flag"},
+      {"id": "ignore", "type": "bitfield", "size": 3},
+      {"id": "rcode", "name": "RCode", "type": "bitfield", "size": 4},
+      {"id": "question_count", "name": "Question Count", "type": "int", "size": 2},
+      {"id": "ans_rr_count", "name": "Answer Record Count", "type": "int", "size": 2},
+      {"id": "auth_rr_count", "name": "Authority Record Count", "type": "int", "size": 2},
+      {"id": "add_rr_count", "name": "Additional Record Count", "type": "int", "size": 2},
+      {"id": "questions", "name": "Questions", "type": "list", "f_size_func": "util.dns_q_count", "field":
+        {
+          "name": "Question",
+          "header": [
+            {"id": "dname", "name": "Name", "type": "dns_str"},
+            {"id": "type", "name": "Type", "type": "int", "size": 2},
+            {"id": "cls", "name": "Class", "type": "int", "size": 2}
+          ]
+        }
+      },
+      {"id": "records", "name": "Records", "type": "list", "f_size_func": "util.dns_rr_count", "field":
+        {
+          "name": "Record",
+          "header": [
+            {"id": "dname", "name": "Name", "type": "dns_str"},
+            {"id": "type", "name": "Type", "type": "int", "size": 2},
+            {"id": "cls", "name": "Class", "type": "int", "size": 2},
+            {"id": "ttl", "name": "TTL", "type": "int", "size": 4},
+            {"id": "res_size", "name": "Resource Size", "type": "int", "size": 2},
+            {"id": "resource", "name": "Resource", "f_parse": "parsing.parse_dnsres", "f_size_func": "util.dns_res_size", "f_str_func": "tostr.dnsres_choosestr"}
+          ]
+        }
+      }
+    ]
+  }
+}

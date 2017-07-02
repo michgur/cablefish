@@ -1,0 +1,20 @@
+{
+  "using": ["types.json"],
+  "include_modules": ["tostr", "parsing"],
+
+  "types": [
+    {"name": "mac_addr", "size": 6, "base": "str", "f_str": "tostr.mactostr"}
+  ],
+
+  "protocol": {
+    "id": "ethernet",
+    "name": "Ethernet",
+    "header": [
+      {"id": "dst", "name": "Destination", "type": "mac_addr"},
+      {"id": "src", "name": "Source", "type": "mac_addr"},
+      {"id": "ethertype", "name": "EtherType", "size": 2, "type": "int", "f_str": "tostr.inttohexstr"}
+    ],
+    "payload": {"key": "ethertype", "f_func": "parsing.get_payload"},
+    "endpoints": ["src", "dst"]
+  }
+}

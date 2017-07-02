@@ -1,0 +1,19 @@
+{
+  "using": ["types.json", "ipv4.json"],
+  "include_modules": ["tostr", "util"],
+
+  "protocol": {
+      "id": "udp",
+      "name": "UDP",
+      "parent": "ipv4",
+      "protocol": 17,
+      "header": [
+        {"id": "src", "name": "Source", "size": 2, "type": "int"},
+        {"id": "dst", "name": "Destination", "size": 2, "type": "int"},
+        {"id": "length", "name": "Length", "size": 2, "type": "int"},
+        {"id": "checksum", "name": "Checksum", "size": 2, "type": "int", "f_str": "tostr.inttohexstr"}
+      ],
+      "endpoints": ["src", "dst"],
+      "payload": {"f_func": "util.udp_payload", "key": "port"}
+  }
+}
