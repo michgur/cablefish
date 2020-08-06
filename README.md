@@ -21,7 +21,7 @@ _This project is developed in Python 2.7 and requires it to run_
 ### The toolbar:
 <img src="readme_assets/toolbar.png" width="80%">
 
-**Tools from right to left:**
+**Tools from left to right:**
 1. Start a new sniffing session
 1. Stop session
 1. Open a previous session (`.cf` file)
