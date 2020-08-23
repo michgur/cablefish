@@ -1,6 +1,6 @@
 <p padding="0" align="center"><img src="readme_assets/cf_logo.png" width="80%"> </p>
 
-# A network traffic sniffer & analyzer. It lets you inspect what's happening on your network by protocols.  
+# A network traffic sniffer & analyzer. It lets you inspect what's happening on your network.  
 ## Features:
 * Sniff network packets and view them
 * Inspect packets' headers and fields
